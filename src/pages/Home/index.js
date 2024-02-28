@@ -28,7 +28,7 @@ function Home(){
           <article className='post' key={item.id}>
             <strong className="nome">{item.nome}</strong>
             <img className='foto' src={item.foto}/>            
-            <a><Link to = {`/detalhes/${item.id}`} className="botao">Acessar</Link></a>
+            <a><Link to = {'/detalhes'} className="botao">Acessar</Link></a>
           </article>
         );
       })}

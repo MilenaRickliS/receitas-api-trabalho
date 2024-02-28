@@ -10,7 +10,7 @@ function Detalhes(){
 
   useEffect( () => { //função para consumir a api
     function carregaDados(){
-      let url = `https://sujeitoprogramador.com/r-api/?api=filmes${id}`;
+      let url = 'https://sujeitoprogramador.com/r-api/?api=filmes';
 
       fetch(url)
       .then((r) => r.json())
@@ -19,8 +19,11 @@ function Detalhes(){
       })
     }
     carregaDados();
+    return () => {
+      console.log("COMPONENTE FOI DESMONTADO")
+    }
     
-  },[]);
+  },[navigate, id]);
   
 
   return(
