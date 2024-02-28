@@ -6,34 +6,29 @@ import axios from "axios";
 
 
 function Home(){ 
-    const [data, setData] = useState([])
-    const url = "http://gold-anemone-wig.cyclic.app/receitas/todas"
+  const [movie, setMovie] = useState([]);  // controlar o estado
 
-  async function fetchData() {
-    try {
-      const response = await axios.get(url);
-      setData(response.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
+  useEffect( () => { //função para consumir a api
+    function carregaDados(){
+      let url = 'https://sujeitoprogramador.com/r-api/?api=filmes';
+
+      fetch(url)
+      .then((r) => r.json())
+      .then((json) => {
+        setMovie(json);
+      })
     }
-  }
-
-
-  useEffect(() => {
-    console.log("Fetching data...");
-    fetchData();
-  }, []);
-
+    carregaDados();
+  },[]);
 
   return(
     <div className='container'>
-      {data.map((item) => { //percorrendo a api
+      {movie.map((item) => { //percorrendo a api
         return(
           <article className='post' key={item.id}>
-            <strong className="nome">{item.receita}</strong>
-            <p className='sinopse'>{item.ingredientes}</p>
-            <img className='foto' src={item.link_imagem}/>            
-            <a className="botao">Acessar</a>
+            <strong className="nome">{item.nome}</strong>
+            <img className='foto' src={item.foto}/>            
+            <a><Link to = {`/detalhes/${item.id}`} className="botao">Acessar</Link></a>
           </article>
         );
       })}

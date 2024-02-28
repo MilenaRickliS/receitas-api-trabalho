@@ -1,26 +1,39 @@
 //Hooks React
-import { Link } from 'react-router-dom';
 import React, {useEffect, useState} from "react";
 import "./style.css"; //estilo
-
+import { useParams, useNavigate } from 'react-router-dom'
 
 function Detalhes(){ 
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [movie, setMovie] = useState([]);  // controlar o estado
 
+  useEffect( () => { //função para consumir a api
+    function carregaDados(){
+      let url = `https://sujeitoprogramador.com/r-api/?api=filmes${id}`;
+
+      fetch(url)
+      .then((r) => r.json())
+      .then((json) => {
+        setMovie(json);
+      })
+    }
+    carregaDados();
+    
+  },[]);
+  
 
   return(
     <div className='container'>
-      <header>
-        <nav>
-          <ul>
-            <li><a><Link to='/'>Home</Link></a></li>
-            <li><a><Link to='/detalhes'>Detalhes</Link></a></li>
-            <li><a><Link to='/minhasreceitas'>Minhas Receitas</Link></a></li>
-          </ul>
-        </nav>
-      </header>
-      <footer>
-        <p>₢Todos os Direitos Reservados</p>
-      </footer>
+      {movie.map((item) => { //percorrendo a api
+        return(
+          <article className='post' key={item.id}>
+            <strong className="nome">{item.nome}</strong>
+            <img className='foto' src={item.foto}/>  
+            <p className='sinopse'>{item.sinopse}</p> 
+          </article>
+        );
+      })}
     </div>
   );
 }
