@@ -5,7 +5,6 @@ import "./style.css"; //estilo
 
 
 function Minhasreceitas(){ 
-  const [movie, setMovie] = useState([]);  // controlar o estado
 
   return(
     <div className='container'>
@@ -18,17 +17,6 @@ function Minhasreceitas(){
           </ul>
         </nav>
       </header>
-
-      {movie.map((item) => { //percorrendo a api
-        return(
-          <article className='post' key={item.id}>
-            <strong className="nome">{item.receita}</strong>
-            <p className='sinopse'>{item.ingredientes}</p>
-            <img className='foto' src={item.link_imagem}/>            
-            <a className="botao">Acessar</a>
-          </article>
-        );
-      })}
       <footer>
         <p>₢Todos os Direitos Reservados</p>
       </footer>
